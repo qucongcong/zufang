@@ -8,7 +8,8 @@ import router from './router'
 import axios from './utils/axios.js'
 Vue.prototype.axios = axios
 Vue.config.productionTip = true
-
+import Clipboard from 'v-clipboard'
+Vue.use(Clipboard)
 
 import Vant from 'vant';
 import 'vant/lib/index.css';
