@@ -9,7 +9,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: resolve => require(['@/components/my/xiugai'], resolve)
+      component: resolve => require(['@/components/home/select'], resolve)
     }
   ]
 })
