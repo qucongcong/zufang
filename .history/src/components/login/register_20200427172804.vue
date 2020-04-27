@@ -1,13 +1,21 @@
 <template>
   <div class="box">
     <div class="title">
-      <p>手机号登录注册</p>
+      <p
+
+      >手机号登录注册</p>
+
     </div>
 
     <transition name="fadere">
       <div class="formre">
         <van-form @submit="onSubmit">
-          <van-field v-model="telephone" name="手机号" placeholder="请输入手机号" @blur="checkTelephone" />
+          <van-field
+            v-model="telephone"
+            name="手机号"
+            placeholder="请输入手机号"
+            @blur="checkTelephone"
+          />
           <van-field style="margin-top:5%;" v-model="sms" center clearable placeholder="请输入短信验证码">
             <template #button>
               <van-button
@@ -19,6 +27,7 @@
             </template>
           </van-field>
 
+
           <div class="subxieyi">
             <van-checkbox v-model="checked">
               <label for>请在同意前认真阅读下方协议：《用户服务协议》</label>
@@ -28,7 +37,7 @@
             <van-button round block type="info" native-type="submit">提交</van-button>
           </div>
           <div class="subchange">
-            <label @click="login">账号密码登录</label>
+             <label @click="login">账号密码登录</label>
           </div>
         </van-form>
       </div>
@@ -41,7 +50,6 @@
 </template>
 
 <script>
-import axios from "../../utils/axios";
 import { Notify } from "vant";
 export default {
   components: {},
@@ -57,15 +65,19 @@ export default {
   watch: {},
   computed: {},
   methods: {
-    getsms() {},
-    checkTelephone() {
+    getsms(){
+
+    },
+    checkTelephone(){
       if (this.telephone == null) {
         Notify({
           message: "手机号不能为空！",
           color: "#ad0000",
           background: "#ffe1e1"
         });
-      } else if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.telephone)) {
+      } else if (
+        !/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.telephone)
+      ) {
         Notify({
           message: "手机号格式不正确，请重新填写！",
           color: "#ad0000",
@@ -75,44 +87,46 @@ export default {
       }
     },
     onSubmit(values) {
-      if (this.sms == null) {
+      if(this.msm == null ){
         Notify({
           message: "验证码不能为空！",
           color: "#ad0000",
           background: "#ffe1e1"
         });
-      } else if (this.checked == false) {
+
+      }else if(this.checked == false){
         Notify({
           message: "请仔细阅读用户服务协议，并勾选！",
           color: "#ad0000",
           background: "#ffe1e1"
         });
-      } else {
-        axios
-          .post(
-            "http://192.168.31.223:8088/gongyu-api/api/login?mobile=" +
-              this.telephone +
-              "&verifyCode=" +
-              this.sms
-          )
-          .then(res => {
-            if (res.data.code == 0) {
-              this.$router.push({
-                path: "/"
-              });
-            } else {
-              Notify({
-                message: res.data.msg,
-                color: "#ad0000",
-                background: "#ffe1e1"
-              });
-              this.sms = null;
-            }
-          });
+        this.telephone = null;
       }
+
+      }
+      //  if (this.loginpassword.length < 6 || this.loginpassword.length > 16) {
+      //   Notify({
+      //     message: `用户名密码错误，请重新输入！`,
+      //     color: "#ad0000",
+      //     background: "#ffe1e1"
+      //   });
+      //   this.loginpassword = null;
+      // } else {
+      //   axios.post({
+      //     url:'http://192.168.31.223:8088/gongyu-api/api/login',
+      //     params:{
+      //       mobile:this.logintelephone,
+      //       password:this.loginpassword,
+      //       verifyCode:this.msm
+      //     }
+      //   }).then(res=>{
+      //     console.log(res);
+
+      //   })
+      // }
     },
-    login() {
-      this.$router.push({ path: "/login" });
+    login(){
+      this.$router.push({path:'/login'})
     }
   },
   created() {},
@@ -132,8 +146,8 @@ export default {
   font-weight: 600;
   padding-bottom: 3%;
   font-size: 17px;
-  color: #ac63fb;
-  border-bottom: 2px solid #ac63fb;
+  color: #AC63FB;
+  border-bottom: 2px solid #AC63FB;
   width: 60%;
   display: inline-block;
 }
@@ -157,11 +171,11 @@ export default {
 .subxieyi label {
   color: #cccccc;
 }
-.subchange {
-  font-size: 14px;
+.subchange{
+  font-size:14px;
   text-align: center;
-  padding-top: 10%;
-  color: #ac63fb;
+  padding-top:10%;
+  color: #AC63FB;
 }
 .sublable {
   margin-top: 5%;

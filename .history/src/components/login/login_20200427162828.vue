@@ -46,7 +46,7 @@
             v-model="retelephone"
             name="手机号"
             placeholder="请输入手机号"
-            @blur="checkRetelephone()"
+            @blur="checkretelephone()"
             ref="retelephone"
           />
           <van-field style="margin-top:5%;" v-model="sms" center clearable placeholder="请输入短信验证码">
@@ -117,7 +117,7 @@ export default {
   computed: {},
   methods: {
     // 验证注册手机号
-    checkRetelephone() {
+    checkReelephone() {
       if (this.$refs.retelephone.value == null) {
         Notify({
           message: "手机号不能为空！",
@@ -208,50 +208,23 @@ export default {
           color: "#ad0000",
           background: "#ffe1e1"
         });
-      } else {
-        axios
-          .post("http://192.168.31.223:8088/gongyu-api/api/register/register", {
-            mobile: this.retelephone,
-            password: this.repasswordcheck,
-            verifyCode: this.sms
-          })
-          .then(res => {
-            if (res.data.code == 0) {
-              this.$router.push({
-                path: "/home"
-              });
-            } else if (res.data.code == 500) {
-              Notify({
-                message: res.data.msg,
-                color: "#ad0000",
-                background: "#ffe1e1"
-              });
-            }
-          });
+      }
+      else {
+        axios.post({
+          url:'http://192.168.31.223:8088/gongyu-api/api/register/register',
+          params:{
+            mobile:this.retelephone,
+            password:this.repasswordcheck,
+            verifyCode:this.sms
+          }
+        }).then(res=>{
+          console.log(res)
+        })
       }
     },
     // 登录
-    login() {
-      if (this.loginpassword.length < 6 || this.loginpassword.length > 16) {
-        Notify({
-          message: `用户名密码错误，请重新输入！`,
-          color: "#ad0000",
-          background: "#ffe1e1"
-        });
-        this.loginpassword = null;
-      } else {
-        axios.post({
-          url:'http://192.168.31.223:8088/gongyu-api/api/login',
-          params:{
-            mobile:this.logintelephone,
-            password:this.loginpassword,
-            verifyCode:this.msm
-          }
-        }).then(res=>{
-          console.log(res);
-
-        })
-      }
+    login(){
+      console.log('login')
     },
     // 验证码登录
     mobileLogin() {
@@ -281,7 +254,7 @@ export default {
 }
 .title {
   text-align: center;
-  padding-top: 10%;
+  padding-top: 20%;
 }
 .title p {
   font-weight: 600;
@@ -317,7 +290,7 @@ export default {
 }
 .sublable {
   margin-top: 5%;
-  font-size: 12px;
+  font-size:12px;
 }
 .sublable label:nth-child(1) {
   color: #808080;

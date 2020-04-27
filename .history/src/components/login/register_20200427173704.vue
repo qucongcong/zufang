@@ -88,28 +88,27 @@ export default {
           background: "#ffe1e1"
         });
       } else {
-        axios
-          .post(
-            "http://192.168.31.223:8088/gongyu-api/api/login?mobile=" +
-              this.telephone +
-              "&verifyCode=" +
-              this.sms
-          )
-          .then(res => {
-            if (res.data.code == 0) {
-              this.$router.push({
-                path: "/"
-              });
-            } else {
-              Notify({
-                message: res.data.msg,
-                color: "#ad0000",
-                background: "#ffe1e1"
-              });
-              this.sms = null;
-            }
-          });
+        console.log(this.telephone);
+
+        // axios
+        //   .post("http://192.168.31.223:8088/gongyu-api/api/login", {
+        //     mobile: this.telephone,
+        //     verifyCode: this.sms
+        //   })
+        //   .then(res => {
+        //     console.log(res);
+        //   });
       }
+      //  if (this.loginpassword.length < 6 || this.loginpassword.length > 16) {
+      //   Notify({
+      //     message: `用户名密码错误，请重新输入！`,
+      //     color: "#ad0000",
+      //     background: "#ffe1e1"
+      //   });
+      //   this.loginpassword = null;
+      // } else {
+
+      // }
     },
     login() {
       this.$router.push({ path: "/login" });

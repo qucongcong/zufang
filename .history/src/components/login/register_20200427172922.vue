@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import axios from "../../utils/axios";
 import { Notify } from "vant";
 export default {
   components: {},
@@ -75,7 +74,7 @@ export default {
       }
     },
     onSubmit(values) {
-      if (this.sms == null) {
+      if (this.msm == null) {
         Notify({
           message: "验证码不能为空！",
           color: "#ad0000",
@@ -89,27 +88,27 @@ export default {
         });
       } else {
         axios
-          .post(
-            "http://192.168.31.223:8088/gongyu-api/api/login?mobile=" +
-              this.telephone +
-              "&verifyCode=" +
-              this.sms
-          )
-          .then(res => {
-            if (res.data.code == 0) {
-              this.$router.push({
-                path: "/"
-              });
-            } else {
-              Notify({
-                message: res.data.msg,
-                color: "#ad0000",
-                background: "#ffe1e1"
-              });
-              this.sms = null;
+          .post({
+            url: "http://192.168.31.223:8088/gongyu-api/api/login",
+            params: {
+              mobile: this.logintelephone,
+              verifyCode: this.msm
             }
+          })
+          .then(res => {
+            console.log(res);
           });
       }
+      //  if (this.loginpassword.length < 6 || this.loginpassword.length > 16) {
+      //   Notify({
+      //     message: `用户名密码错误，请重新输入！`,
+      //     color: "#ad0000",
+      //     background: "#ffe1e1"
+      //   });
+      //   this.loginpassword = null;
+      // } else {
+
+      // }
     },
     login() {
       this.$router.push({ path: "/login" });

@@ -1,24 +1,45 @@
 <template>
   <div class="box">
     <div class="title">
-      <p>手机号登录注册</p>
+      <p @click="changeState">忘记密码</p>
     </div>
 
     <transition name="fadere">
       <div class="formre">
         <van-form @submit="onSubmit">
-          <van-field v-model="telephone" name="手机号" placeholder="请输入手机号" @blur="checkTelephone" />
+          <van-field
+            v-model="username"
+            name="手机号"
+            placeholder="请输入手机号"
+            :rules="[{ required: true, }]"
+          />
           <van-field style="margin-top:5%;" v-model="sms" center clearable placeholder="请输入短信验证码">
             <template #button>
               <van-button
                 size="small"
                 type="default"
                 style="border:none;border-left:1px solid #E7E7E7;color:#AC63FB"
-                @click="getsms"
               >发送验证码</van-button>
             </template>
           </van-field>
 
+          <van-field
+            style="margin-top:5%;"
+            v-model="password"
+            type="password"
+            name="密码"
+            placeholder="请输入密码"
+            :rules="[{ required: true,}]"
+          />
+
+          <van-field
+            style="margin-top:5%;"
+            v-model="password"
+            type="password"
+            name="queren密码"
+            placeholder="请确认密码"
+            :rules="[{ required: true,}]"
+          />
           <div class="subxieyi">
             <van-checkbox v-model="checked">
               <label for>请在同意前认真阅读下方协议：《用户服务协议》</label>
@@ -26,9 +47,6 @@
           </div>
           <div>
             <van-button round block type="info" native-type="submit">提交</van-button>
-          </div>
-          <div class="subchange">
-            <label @click="login">账号密码登录</label>
           </div>
         </van-form>
       </div>
@@ -41,78 +59,32 @@
 </template>
 
 <script>
-import axios from "../../utils/axios";
-import { Notify } from "vant";
 export default {
   components: {},
   props: {},
   data() {
     return {
       change: false,
-      telephone: null,
-      sms: null,
+      username: "",
+      password: "",
+      sms: "",
       checked: false
     };
   },
   watch: {},
   computed: {},
   methods: {
-    getsms() {},
-    checkTelephone() {
-      if (this.telephone == null) {
-        Notify({
-          message: "手机号不能为空！",
-          color: "#ad0000",
-          background: "#ffe1e1"
-        });
-      } else if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.telephone)) {
-        Notify({
-          message: "手机号格式不正确，请重新填写！",
-          color: "#ad0000",
-          background: "#ffe1e1"
-        });
-        this.telephone = null;
-      }
+    changeState() {
+      this.change = !this.change;
     },
     onSubmit(values) {
-      if (this.sms == null) {
-        Notify({
-          message: "验证码不能为空！",
-          color: "#ad0000",
-          background: "#ffe1e1"
-        });
-      } else if (this.checked == false) {
-        Notify({
-          message: "请仔细阅读用户服务协议，并勾选！",
-          color: "#ad0000",
-          background: "#ffe1e1"
-        });
-      } else {
-        axios
-          .post(
-            "http://192.168.31.223:8088/gongyu-api/api/login?mobile=" +
-              this.telephone +
-              "&verifyCode=" +
-              this.sms
-          )
-          .then(res => {
-            if (res.data.code == 0) {
-              this.$router.push({
-                path: "/"
-              });
-            } else {
-              Notify({
-                message: res.data.msg,
-                color: "#ad0000",
-                background: "#ffe1e1"
-              });
-              this.sms = null;
-            }
-          });
-      }
+      console.log("submit", values);
     },
-    login() {
-      this.$router.push({ path: "/login" });
+    mobileLogin() {
+      this.$router.push({ path: "/register" });
+    },
+    forgetpw() {
+      this.$router.push({ path: "/changepw" });
     }
   },
   created() {},
@@ -126,14 +98,14 @@ export default {
 }
 .title {
   text-align: center;
-  padding-top: 20%;
+  padding-top: 15%;
 }
 .title p {
   font-weight: 600;
   padding-bottom: 3%;
   font-size: 17px;
-  color: #ac63fb;
-  border-bottom: 2px solid #ac63fb;
+  color: #AC63FB;
+  border-bottom: 2px solid #AC63FB;
   width: 60%;
   display: inline-block;
 }
@@ -147,6 +119,9 @@ export default {
   padding-left: 5%;
   padding-top: 24%;
 }
+.subbutton {
+  margin-top: 20%;
+}
 .subxieyi {
   padding-left: 3%;
   margin-top: 5%;
@@ -156,12 +131,6 @@ export default {
 }
 .subxieyi label {
   color: #cccccc;
-}
-.subchange {
-  font-size: 14px;
-  text-align: center;
-  padding-top: 10%;
-  color: #ac63fb;
 }
 .sublable {
   margin-top: 5%;
@@ -181,4 +150,18 @@ export default {
   left: 0;
 }
 /* 动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+.fadere-enter-active,
+.fadere-leave-active {
+  transition: opacity 0s;
+}
+.fadere-enter, .fadere-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>

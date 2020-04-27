@@ -232,26 +232,7 @@ export default {
     },
     // 登录
     login() {
-      if (this.loginpassword.length < 6 || this.loginpassword.length > 16) {
-        Notify({
-          message: `用户名密码错误，请重新输入！`,
-          color: "#ad0000",
-          background: "#ffe1e1"
-        });
-        this.loginpassword = null;
-      } else {
-        axios.post({
-          url:'http://192.168.31.223:8088/gongyu-api/api/login',
-          params:{
-            mobile:this.logintelephone,
-            password:this.loginpassword,
-            verifyCode:this.msm
-          }
-        }).then(res=>{
-          console.log(res);
-
-        })
-      }
+      console.log("login");
     },
     // 验证码登录
     mobileLogin() {
