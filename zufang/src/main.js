@@ -18,3 +18,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+import app from './app'
