@@ -4,11 +4,17 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-Vue.config.productionTip = false
+
+import axios from './utils/axios.js'
+Vue.prototype.axios = axios
+Vue.config.productionTip = true
+
 
 import Vant from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Vant);
+import fontAwesome from '../static/font/fontAwesome/css/font-awesome.min.css'
+Vue.use(fontAwesome)
 
 
 /* eslint-disable no-new */

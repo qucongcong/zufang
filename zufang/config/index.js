@@ -12,10 +12,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/myq': {
-        target: "",
+        target: "http://192.168.31.223:8088/gongyu-api",
         changeOrigin: true,
         pathRewrite: {
-          '^/yjg': ''
+          '^/myq': ''
         }
       }
     },
