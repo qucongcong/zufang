@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Message from '@/components/my/Message'
+import Subsidy from '@/components/my/Subsidy'
 
 
 Vue.use(Router)
@@ -9,7 +11,17 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: resolve => require(['@/components/home/select'], resolve)
+      component: resolve => require(['@/components/home/home'], resolve)
+    },
+    {
+      path:'/Message',
+      name: 'Message',
+      component: Message
+    },
+    {
+      path:'/Subsidy',
+      name: 'Subsidy',
+      component: Subsidy
     }
   ]
 })
