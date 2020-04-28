@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// import Message from '@/components/my/Message'
+// import Subsidy from '@/components/my/Subsidy'
 
 
 Vue.use(Router)
@@ -7,18 +9,19 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/consult',
-      name: 'consult',
-      component: resolve => require(['@/components/my/consult'], resolve)
+      path: '/',
+      name: 'home',
+      component: resolve => require(['@/components/home/home'], resolve)
     },
     {
-      path: '/pay',
-      name: 'pay',
-      component: resolve => require(['@/components/my/pay'], resolve)
-    },{
-      path: '/audit',
-      name: 'audit',
-      component: resolve => require(['@/components/my/audit'], resolve)
+      path:'/Message',
+      name: 'Message',
+      component: resolve => require(['@/components/my/Message'], resolve)
+    },
+    {
+      path:'/Subsidy',
+      name: 'Subsidy',
+      component: resolve => require(['@/components/my/Subsidy'], resolve)
     }
   ]
 })
